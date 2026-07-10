@@ -3,6 +3,8 @@ import cron from 'node-cron';
 import { scrapeReddit } from './scrapers/reddit.js';
 import { scrapeTwitter } from './scrapers/twitter.js';
 import { scrapeThreads } from './scrapers/threads.js';
+import { scrapeDesignReddit } from './scrapers/design-reddit.js';
+import { scrapeDesignThreads } from './scrapers/design-threads.js';
 import { claudeFilter } from './filters/claudeFilter.js';
 import { sendToTelegram } from './notifiers/telegram.js';
 import { filterDuplicates, markAsSeen, cleanupSeen } from './storage/dedup.js';
@@ -20,8 +22,10 @@ async function runPipeline(): Promise<void> {
 
     const scrapers: [string, () => Promise<RawPost[]>][] = [
       ['threads', scrapeThreads],
+      ['design-threads', scrapeDesignThreads],
       ['twitter', scrapeTwitter],
       ['reddit', scrapeReddit],
+      ['design-reddit', scrapeDesignReddit],
     ];
 
     const rawPosts: RawPost[] = [];
