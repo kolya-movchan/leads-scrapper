@@ -12,16 +12,18 @@ const APIFY_BASE = 'https://api.apify.com/v2';
 // Cost = keywords × MAX_POSTS, so keep the list tight (actor cap: 20 keywords).
 const DEFAULT_KEYWORDS = [
   // English
-  // 'need automation',
-  // 'looking for a developer',
-  // 'build me a website',
-  // 'need a website',
-  // 'need AI automation',
-  // 'need an AI agent',
+  'need automation',
+  'looking for a developer',
+  'build me a website',
+  'need a website',
+  'need AI automation',
+  'need an AI agent',
   // Ukrainian
   'потрібна автоматизація',
   'шукаю розробника',
+  'шукаю АІ автоматизатора',
   'потрібен сайт',
+  'Front End Developer',
   'AI автоматизація',
   'хто робить AI агентів',
   'потрібен чат-бот',
@@ -56,7 +58,7 @@ export async function scrapeThreads(): Promise<RawPost[]> {
     mode: 'search',
     keywords: KEYWORDS,
     search_filter: 'recent',
-    start_date: '1 day', // scheduled every 2h; dedup drops the overlap between runs
+    start_date: '1 day',
     max_posts: MAX_POSTS,
   };
 

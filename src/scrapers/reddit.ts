@@ -20,11 +20,10 @@ const KEYWORDS = [
 const SUBREDDITS = [
   'nocode',
   'forhire',
-  // 'slavelabour',
-  // 'webdev',
-  // 'automation',
-  // 'entrepreneur',
-  // 'SaaS',
+  'slavelabour',
+  'webdev',
+  'automation',
+  'entrepreneur',
 ];
 
 // Override with REDDIT_MAX_ITEMS in .env to control Apify cost (~$0.004/result)
