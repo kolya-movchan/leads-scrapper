@@ -28,7 +28,7 @@ const SUBREDDITS = [
 ];
 
 // Override with REDDIT_MAX_ITEMS in .env to control Apify cost (~$0.004/result)
-const MAX_ITEMS = Number(process.env.REDDIT_MAX_ITEMS) || 50;
+const MAX_ITEMS = Number(process.env.REDDIT_MAX_ITEMS) || 10;
 // Apify caps waitForFinish at 60s; after that we poll until the run finishes
 const WAIT_FOR_FINISH_SECS = 60;
 const MAX_POLL_MINUTES = 20;

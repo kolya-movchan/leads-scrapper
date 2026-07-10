@@ -32,7 +32,7 @@ const KEYWORDS = process.env.THREADS_KEYWORDS
   ? process.env.THREADS_KEYWORDS.split(',').map((k) => k.trim()).filter(Boolean)
   : DEFAULT_KEYWORDS;
 // Actor rejects max_posts below 10
-const MAX_POSTS = Math.max(10, Number(process.env.THREADS_MAX_POSTS) || 15);
+const MAX_POSTS = Math.max(10, Number(process.env.THREADS_MAX_POSTS) || 10);
 
 const WAIT_FOR_FINISH_SECS = 60;
 const MAX_POLL_MINUTES = 20;
