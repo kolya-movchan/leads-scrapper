@@ -24,15 +24,15 @@ const KEYWORDS = [
 // Design-focused subreddits
 const SUBREDDITS = [
   'forhire',
-  'slavelabour',
-  'Design',
   'webdev',
-  'UX_Design',
-  'UI_Design',
-  'graphic_design',
-  'web_design',
-  'entrepreneur',
-  'startups',
+  // 'UX_Design',
+  // 'web_design',
+  // 'slavelabour',
+  // 'Design',
+  // 'UI_Design',
+  // 'graphic_design',
+  // 'entrepreneur',
+  // 'startups',
 ];
 
 // Override with DESIGN_REDDIT_MAX_ITEMS in .env to control Apify cost (~$0.004/result)
