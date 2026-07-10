@@ -1,11 +1,5 @@
-[[services]]
-name = "lead-scraper"
-runtime = "node"
-
-[services.build]
-builder = "nixpacks"
-
 [[crons]]
 id = "daily-lead-scan"
 cmd = "npm run once"
-schedule = "0 8 * * *"
+schedule = "0 9 * * *"
+tz = "Europe/Kyiv"

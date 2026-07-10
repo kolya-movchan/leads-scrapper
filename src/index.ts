@@ -75,7 +75,7 @@ const runOnce = process.argv.includes('--once');
 if (runOnce) {
   runPipeline().then(() => process.exit(0));
 } else {
-  console.log('Lead finder started. Running now, then every 2 hours.');
+  console.log('Lead finder started. Running now, then each day at 9:00 AM.');
   runPipeline();
   cron.schedule('0 */2 * * *', runPipeline);
 }
