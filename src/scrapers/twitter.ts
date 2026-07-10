@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { RawPost } from '../types/index.js';
 
-// Verified against the Apify Store on 2026-07-10: apidojo's Tweet Scraper V2
-// ($0.40 per 1000 tweets). searchTerms accepts Twitter advanced-search syntax,
-// so each term is a quoted phrase + within_time:1d to only pull fresh posts
-// (the pipeline runs every 2h; dedup drops the overlap between runs).
-const ACTOR_ID = 'apidojo~tweet-scraper';
+// Verified against the Apify Store on 2026-07-10. apidojo's tweet-scraper is
+// blocked on the Apify Free Plan, so we use kaitoeasyapi's pay-per-result
+// scraper ($0.18 per 1000 tweets) instead. searchTerms accepts Twitter
+// advanced-search syntax, so each term is a quoted phrase + within_time:1d
+// to only pull fresh posts (pipeline runs every 2h; dedup drops the overlap).
+const ACTOR_ID = 'kaitoeasyapi~twitter-x-data-tweet-scraper-pay-per-result-cheapest';
 const APIFY_BASE = 'https://api.apify.com/v2';
 
 // Hiring-intent phrases, English + Ukrainian (same 50/50 approach as Threads)
@@ -49,7 +50,7 @@ export async function scrapeTwitter(): Promise<RawPost[]> {
 
   const input = {
     searchTerms: KEYWORDS.map((kw) => `"${kw}" within_time:1d`),
-    sort: 'Latest',
+    queryType: 'Latest',
     maxItems: MAX_ITEMS,
   };
 

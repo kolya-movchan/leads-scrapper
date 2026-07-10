@@ -21,11 +21,11 @@ async function runPipeline(): Promise<void> {
     cleanupSeen();
 
     const scrapers: [string, () => Promise<RawPost[]>][] = [
-      ['threads', scrapeThreads],
       ['design-threads', scrapeDesignThreads],
+      ['design-reddit', scrapeDesignReddit],
+      ['threads', scrapeThreads],
       ['twitter', scrapeTwitter],
       ['reddit', scrapeReddit],
-      ['design-reddit', scrapeDesignReddit],
     ];
 
     const rawPosts: RawPost[] = [];
