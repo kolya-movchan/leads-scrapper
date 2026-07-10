@@ -12,7 +12,8 @@ You analyze social media posts and determine if the author is looking to hire so
 - Any "build something for me" type request
 
 Score relevance 1-10. Posts where the author is OFFERING services (not seeking them) score 1-2.
-Set isWebDesign to true when the request is primarily about visual/UI design work.`;
+Set isWebDesign to true when the request is primarily about visual/UI design work.
+Always fill "reason" with a single short sentence explaining the score (e.g. "Author is seeking a developer to build a SaaS dashboard" or "Author is offering freelance services, not seeking help").`;
 
 // Structured output schema — the API guarantees the response validates against this,
 // so no markdown-stripping or JSON.parse retry logic is needed.
@@ -22,6 +23,7 @@ const OUTPUT_SCHEMA = {
     type: 'object',
     properties: {
       relevanceScore: { type: 'integer', enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
+      reason: { type: 'string' },
       whatTheyNeed: { type: 'string' },
       budget: { type: ['string', 'null'] },
       urgency: { type: ['string', 'null'] },
@@ -31,6 +33,7 @@ const OUTPUT_SCHEMA = {
     },
     required: [
       'relevanceScore',
+      'reason',
       'whatTheyNeed',
       'budget',
       'urgency',

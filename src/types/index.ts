@@ -11,6 +11,7 @@ export interface RawPost {
 
 export interface LeadAnalysis {
   relevanceScore: number; // 1-10
+  reason: string; // one sentence why this score was given
   whatTheyNeed: string;
   budget: string | null;
   urgency: string | null;
