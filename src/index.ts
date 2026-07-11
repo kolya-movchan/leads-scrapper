@@ -125,7 +125,7 @@ const runOnce = process.argv.includes('--once');
 if (runOnce) {
   runPipeline().then(() => process.exit(0));
 } else {
-  console.log('Lead finder started. Running now, then each day at 9:00 AM.');
-  runPipeline();
-  cron.schedule('0 */2 * * *', runPipeline);
+  console.log('Lead finder started. Scheduled at 9:00 AM and 8:00 PM Kyiv time (UTC+3).');
+  cron.schedule('0 6 * * *', runPipeline);  // 9:00 AM Kyiv (UTC+3)
+  cron.schedule('0 17 * * *', runPipeline); // 8:00 PM Kyiv (UTC+3)
 }
