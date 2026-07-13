@@ -24,3 +24,29 @@ export interface FilteredLead {
   post: RawPost;
   analysis: LeadAnalysis;
 }
+
+// --- Google Maps local-business pipeline (separate from social posts) ---
+
+export interface GoogleMapsPlace {
+  id: string; // `google-maps-${placeId}`
+  name: string;
+  category: string; // e.g. "Dental clinic"
+  address: string;
+  city: string;
+  phone: string | null;
+  website: string | null;
+  email: string | null; // from contact enrichment (scraped off their website)
+  instagram: string | null;
+  facebook: string | null;
+  rating: number | null;
+  reviewsCount: number | null;
+  url: string; // Google Maps URL
+  searchString: string; // which query found it
+}
+
+export interface BusinessLead {
+  place: GoogleMapsPlace;
+  fitScore: number; // 1-10 how good a prospect for AI services
+  reason: string;
+  outreachMessage: string; // short personalized cold message
+}
