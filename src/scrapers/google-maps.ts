@@ -59,13 +59,23 @@ export async function scrapeGoogleMaps(): Promise<GoogleMapsPlace[]> {
 
   console.log(`[google-maps] searching ${SEARCH_QUERIES.length} queries in "${LOCATION}", max ${MAX_PLACES} places each`);
 
-  const startRes = await axios.post(
-    `${APIFY_BASE}/acts/${ACTOR_ID}/runs?token=${token}&waitForFinish=${WAIT_FOR_FINISH_SECS}`,
-    input,
-    { headers: { 'Content-Type': 'application/json' }, timeout: (WAIT_FOR_FINISH_SECS + 30) * 1000 },
-  );
-
-  let run = startRes.data.data;
+  let run: { id: string; status: string; defaultDatasetId: string };
+  try {
+    const startRes = await axios.post(
+      `${APIFY_BASE}/acts/${ACTOR_ID}/runs?token=${token}&waitForFinish=${WAIT_FOR_FINISH_SECS}`,
+      input,
+      { headers: { 'Content-Type': 'application/json' }, timeout: (WAIT_FOR_FINISH_SECS + 30) * 1000 },
+    );
+    run = startRes.data.data;
+  } catch (err) {
+    // Surface Apify's own error message (e.g. "not-enough-usage-to-run-paid-actor")
+    // instead of a bare axios status code
+    if (axios.isAxiosError(err) && err.response?.data?.error) {
+      const { type, message } = err.response.data.error;
+      throw new Error(`Apify refused to start run (${err.response.status} ${type}): ${message}`);
+    }
+    throw err;
+  }
 
   const terminal = ['SUCCEEDED', 'FAILED', 'ABORTED', 'TIMED-OUT'];
   const maxPolls = (MAX_POLL_MINUTES * 60) / 15;
