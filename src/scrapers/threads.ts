@@ -18,12 +18,12 @@ const DEFAULT_KEYWORDS = [
   'need a website',
   'need AI automation',
   'need an AI agent',
+  'AI automation',
   // Ukrainian
   'потрібна автоматизація',
   'шукаю розробника',
   'шукаю АІ автоматизатора',
   'потрібен сайт',
-  'Front End Developer',
   'AI автоматизація',
   'хто робить AI агентів',
   'потрібен чат-бот',
