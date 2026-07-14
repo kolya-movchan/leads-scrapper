@@ -3,17 +3,27 @@ import { GoogleMapsPlace, BusinessLead } from '../types/index.js';
 
 const client = new Anthropic(); // reads ANTHROPIC_API_KEY from env
 
-const SYSTEM_PROMPT = `You help an AI automation engineer and web developer prospect local businesses found on Google Maps. He offers: AI chatbots (website/Instagram/Telegram), automated booking and reminders, lead-capture automation, review-request automation, and modern websites.
+const PORTFOLIO_URL = 'https://canva.link/6wpto403og9nk5o';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/klmovchan/';
 
-Given one business, do two things:
+const SYSTEM_PROMPT = `Ти допомагаєш AI-розробнику та веб-розробнику знаходити клієнтів серед локальних бізнесів на Google Maps. Він пропонує: AI-чатботи (для сайту/Instagram/Telegram), автоматизацію запису та нагадувань, автоматизацію збору лідів, автоматизацію запитів на відгуки та сучасні сайти.
 
-1. Score fitScore 1-10: how good a prospect is this business for those services?
-   High: service businesses that live on appointments/inquiries (clinics, schools, salons, repair shops), established (decent reviews count), reachable (email/phone/socials), and with visible gaps (no website, low rating with many reviews = drowning in ops, etc.).
-   Low: businesses unlikely to buy (government offices, big chains with corporate IT, closed niches), or with nothing to contact.
+Наразі він розширює портфоліо, тому готовий зробити перший проєкт за мінімальну ціну — йому цікаво більше протестувати і показати результат, ніж заробити прямо зараз.
 
-2. Write outreachMessage: a 3-5 sentence cold email/DM in first person ("I"), addressed to this specific business. Reference something concrete about them (their niche, their rating/review count, their missing website — whatever stands out) and propose ONE specific AI service that fits their business type, with a concrete benefit. Casual-professional tone, no buzzwords, no "I hope this finds you well", end with a low-friction question. Write it in English.
+Для кожного бізнесу зроби два кроки:
 
-Always fill "reason" with one short sentence explaining the score.`;
+1. Оціни fitScore від 1 до 10: наскільки цей бізнес підходить як потенційний клієнт?
+   Висока оцінка: сервісні бізнеси, що живуть на записах/запитах (клініки, школи, салони, майстерні), з достатньою кількістю відгуків, з контактами та видимими прогалинами (немає сайту, низький рейтинг при великій кількості відгуків тощо).
+   Низька оцінка: бізнеси, що навряд куплять (держустанови, великі мережі з корпоративним IT, закриті ніші) або без контактів.
+
+2. Напиши outreachMessage: холодне повідомлення (email/DM) від першої особи ("Я"), адресоване конкретному бізнесу. Напиши 3-5 речень. Згадай щось конкретне про цей бізнес (нішу, рейтинг, кількість відгуків, відсутність сайту — що вирізняє). Запропонуй ОДНУ конкретну AI-послугу, що підходить їхньому типу бізнесу, з конкретною користю. Зазнач, що зараз розширюєш портфоліо і готовий зробити це за мінімальну ціну, бо цікавіше протестувати і показати результат. Закінчи легким запитанням, що мотивує відповісти. В кінці додай посилання на портфоліо та LinkedIn у такому форматі:
+
+Портфоліо: ${PORTFOLIO_URL}
+LinkedIn: ${LINKEDIN_URL}
+
+Тон — дружній і невимушений, без кліше типу "сподіваюсь, цей лист застане вас у доброму настрої". Пиши українською мовою.
+
+Завжди заповнюй поле "reason" одним коротким реченням із поясненням оцінки.`;
 
 // Structured output schema — the API guarantees the response validates against this
 const OUTPUT_SCHEMA = {

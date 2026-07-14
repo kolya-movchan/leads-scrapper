@@ -97,14 +97,6 @@ async function run(): Promise<void> {
 
   saveRunSnapshot(places, analyzed, accepted.length);
 
-  try {
-    await sendTelegramText(
-      `🗺 Google Maps run: ${places.length} places, ${newPlaces.length} new, <b>${accepted.length} leads</b> → data/leads.csv`,
-    );
-  } catch (err) {
-    console.error('[telegram] summary failed:', err instanceof Error ? err.message : err);
-  }
-
   console.log(`[${new Date().toISOString()}] Done. ${accepted.length} leads appended to data/leads.csv`);
 }
 
